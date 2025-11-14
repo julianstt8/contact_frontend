@@ -42,3 +42,13 @@ El frontend fue desarrollado en aproximadamente 6.5 horas, incluyendo creación 
 # INSTALACION
 
 1. Clonar el repositorio:
+
+- https://github.com/julianstt8/contact_frontend.git
+
+2. Instalar dependencias:
+
+- npm install
+
+3. Ejecutar la aplicacion:
+
+- npm start o ng serve
