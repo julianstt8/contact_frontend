@@ -1,0 +1,91 @@
+.contact-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 250px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+  }
+
+  .card-top {
+    h3 {
+      margin: 0 0 5px 0;
+      font-size: 20px;
+      font-weight: 600;
+      color: #2c3e50;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .email {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #555;
+      font-size: 14px;
+      mat-icon {
+        font-size: 18px;
+        color: #3498db;
+      }
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .card-phones {
+    margin: 12px 0;
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 5px;
+
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: rgba(0, 0, 0, 0.2);
+      border-radius: 3px;
+    }
+
+    p {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #555;
+      font-size: 14px;
+      mat-icon {
+        font-size: 18px;
+        color: #2ecc71;
+      }
+      margin: 4px 0;
+    }
+  }
+
+  .card-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+
+    button {
+      transition: background-color 0.2s ease, transform 0.2s ease;
+
+      &:hover {
+        transform: scale(1.1);
+      }
+
+      mat-icon {
+        font-size: 20px;
+      }
+    }
+  }
+}

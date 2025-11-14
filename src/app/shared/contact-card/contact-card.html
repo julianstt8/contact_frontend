@@ -1,0 +1,26 @@
+<div class="contact-card" *ngIf="contact">
+  <div class="card-top">
+    <h3>{{ contact.nombre + ' ' + contact.apellido }}</h3>
+    <p class="email" *ngIf="contact.email">
+      <mat-icon>email</mat-icon> {{ contact.email }}
+    </p>
+  </div>
+
+  <div class="card-phones" *ngIf="(contact.telefonos.length || 0) > 0">
+    <p *ngFor="let telefono of contact.telefonos">
+      <mat-icon>phone</mat-icon> {{ telefono }}
+    </p>
+  </div>
+
+  <div class="card-actions">
+    <button mat-icon-button color="primary" (click)="onView()">
+      <mat-icon>visibility</mat-icon>
+    </button>
+    <button mat-icon-button color="accent" (click)="onEdit()">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-icon-button color="warn" (click)="onDelete()">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
+</div>

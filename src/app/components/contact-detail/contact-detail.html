@@ -1,0 +1,57 @@
+<div class="detail-container" *ngIf="contact; else notFound">
+  <div class="header-actions">
+    <button mat-stroked-button color="primary" (click)="goBack()">
+      <mat-icon>arrow_back</mat-icon> Volver a la lista
+    </button>
+    <div class="action-buttons">
+      <button mat-stroked-button color="accent" (click)="editContact()">
+        <mat-icon>edit</mat-icon> Editar
+      </button>
+      <button mat-stroked-button color="warn" (click)="deleteContact()">
+        <mat-icon>delete</mat-icon> Eliminar
+      </button>
+    </div>
+  </div>
+  <div class="contact-card">
+    <div class="contact-header">
+      <div class="avatar">
+        {{ contact?.nombre?.charAt(0)?.toUpperCase() }}
+      </div>
+      <div class="header-info">
+        <h1>{{ contact?.nombre }} {{ contact?.apellido }}</h1>
+      </div>
+    </div>
+    <div class="contact-details">
+      <div class="detail-section">
+        <h3>
+          <mat-icon>email</mat-icon> Información de contacto
+        </h3>
+        <div class="detail-item">
+          <span class="label">Email:</span>
+          <a [href]="'mailto:' + contact?.email" class="value link">{{ contact?.email }}</a>
+        </div>
+      </div>
+      <div class="detail-section">
+        <h3>
+          <mat-icon>smartphone</mat-icon> Teléfonos
+        </h3>
+        <div class="phones-list">
+          <div class="phone-item" *ngFor="let telefono of contact.telefonos">
+            <a [href]="'tel:' + telefono" class="phone-number">
+              {{ telefono }}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #notFound>
+  <div class="not-found">
+    <h2>Contacto no encontrado</h2>
+    <p>El contacto que buscas no existe o ha sido eliminado.</p>
+    <button mat-raised-button color="primary" (click)="goBack()">
+      <mat-icon>arrow_back</mat-icon> Volver a la lista
+    </button>
+  </div>
+</ng-template>

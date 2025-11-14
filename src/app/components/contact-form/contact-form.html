@@ -1,0 +1,65 @@
+<div class="form-container">
+  <h1>{{ isEditMode ? 'Editar Contacto' : 'Nuevo Contacto' }}</h1>
+
+  <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+
+    <div class="form-grid">
+      <mat-form-field appearance="outline">
+        <mat-label>Nombre*</mat-label>
+        <input matInput formControlName="nombre" placeholder="Ej: Juan">
+        <mat-error *ngIf="isFieldInvalid('nombre')">
+          <span *ngIf="contactForm.get('nombre')?.errors?.['required']">El nombre es requerido</span>
+          <span *ngIf="contactForm.get('nombre')?.errors?.['minlength']">Debe tener al menos 3 caracteres</span>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Apellido*</mat-label>
+        <input matInput formControlName="apellido" placeholder="Ej: Pérez">
+        <mat-error *ngIf="isFieldInvalid('apellido')">
+          <span *ngIf="contactForm.get('apellido')?.errors?.['required']">El apellido es requerido</span>
+          <span *ngIf="contactForm.get('apellido')?.errors?.['minlength']">Debe tener al menos 3 caracteres</span>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Email *</mat-label>
+        <input matInput type="email" formControlName="email" placeholder="Ej: juan@example.com">
+        <mat-error *ngIf="isFieldInvalid('email')">
+          <span *ngIf="contactForm.get('email')?.errors?.['required']">El email es requerido</span>
+          <span *ngIf="contactForm.get('email')?.errors?.['email']">Ingresa un email válido</span>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="phones-section">
+      <div class="section-header">
+        <h3>Teléfonos</h3>
+        <button mat-raised-button color="primary" type="button" (click)="addTelefono()">
+          <mat-icon>add</mat-icon> Agregar teléfono
+        </button>
+      </div>
+      <div formArrayName="telefonos">
+        <div *ngFor="let telefono of telefonos.controls; let i = index" [formGroupName]="i" class="phone-group">
+          <mat-form-field appearance="outline" class="flex-grow">
+            <mat-label>Número *</mat-label>
+            <input matInput type="tel" formControlName="numero" placeholder="+57 300 123 4567">
+            <mat-error *ngIf="isTelefonoFieldInvalid(i)">
+              <span *ngIf="telefonos.at(i).get('numero')?.errors?.['required']">El número es requerido</span>
+              <span *ngIf="telefonos.at(i).get('numero')?.errors?.['pattern']">Formato inválido</span>
+            </mat-error>
+          </mat-form-field>
+          <button mat-icon-button color="warn" type="button" (click)="removeTelefono(i)"
+            [disabled]="telefonos.length === 1">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="form-actions">
+      <button mat-raised-button color="warn" type="button" (click)="onCancel()">Cancelar</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="contactForm.invalid">
+        {{ isEditMode ? 'Guardar cambios' : 'Crear contacto' }}
+      </button>
+    </div>
+  </form>
+</div>

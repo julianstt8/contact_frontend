@@ -1,0 +1,99 @@
+[
+  {
+    "id": 1,
+    "nombre": "Carlos",
+    "apellido": "Gomez",
+    "email": "carlos@test.com",
+    "telefonos": [
+      "3001234567",
+      "3001112233"
+    ]
+  },
+  {
+    "id": 2,
+    "nombre": "Ana",
+    "apellido": "Martinez",
+    "email": "ana@test.com",
+    "telefonos": [
+      "3001234567",
+      "3001234567",
+      "3214448899"
+    ]
+  },
+  {
+    "id": 3,
+    "nombre": "Juan",
+    "apellido": "Pérez",
+    "email": "juan.perez@test.com",
+    "telefonos": [
+      "3109876543"
+    ]
+  },
+  {
+    "id": 4,
+    "nombre": "Laura",
+    "apellido": "Rodriguez",
+    "email": "laura.rodriguez@test.com",
+    "telefonos": [
+      "3123456789",
+      "3101112233"
+    ]
+  },
+  {
+    "id": 5,
+    "nombre": "Miguel",
+    "apellido": "Torres",
+    "email": "miguel.torres@test.com",
+    "telefonos": [
+      "3009998888"
+    ]
+  },
+  {
+    "id": 6,
+    "nombre": "Sofia",
+    "apellido": "Ramirez",
+    "email": "sofia.ramirez@test.com",
+    "telefonos": [
+      "3012345678",
+      "3023456789"
+    ]
+  },
+  {
+    "id": 7,
+    "nombre": "Andrés",
+    "apellido": "Castillo",
+    "email": "andres.castillo@test.com",
+    "telefonos": [
+      "3112223344"
+    ]
+  },
+  {
+    "id": 8,
+    "nombre": "Valentina",
+    "apellido": "Lopez",
+    "email": "valentina.lopez@test.com",
+    "telefonos": [
+      "3205556677",
+      "3216667788"
+    ]
+  },
+  {
+    "id": 9,
+    "nombre": "Diego",
+    "apellido": "Morales",
+    "email": "diego.morales@test.com",
+    "telefonos": [
+      "3007778899"
+    ]
+  },
+  {
+    "id": 10,
+    "nombre": "Camila",
+    "apellido": "Vargas",
+    "email": "camila.vargas@test.com",
+    "telefonos": [
+      "3108889990",
+      "3110001112"
+    ]
+  }
+]

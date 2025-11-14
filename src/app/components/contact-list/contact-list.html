@@ -1,0 +1,23 @@
+<div class="contact-dashboard">
+  <div class="dashboard-header">
+    <h1>Contactos</h1>
+    <button mat-raised-button color="primary" (click)="addNewContact()">
+      <mat-icon>person_add</mat-icon> Nuevo Contacto
+    </button>
+  </div>
+
+  <div class="contacts-grid" *ngIf="contacts.length > 0; else emptyContacts">
+    <app-contact-card *ngFor="let contact of contacts" [contact]="contact" (view)="viewContact($event)"
+      (edit)="editContact($event)" (delete)="deleteContact($event)">
+    </app-contact-card>
+  </div>
+
+  <ng-template #emptyContacts>
+    <div class="empty-state">
+      <p>No tienes contactos aún.</p>
+      <button mat-raised-button color="primary" (click)="addNewContact()">
+        <mat-icon>person_add</mat-icon> Agregar tu primer contacto
+      </button>
+    </div>
+  </ng-template>
+</div>
