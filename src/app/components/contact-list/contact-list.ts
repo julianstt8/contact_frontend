@@ -47,14 +47,11 @@ export class ContactList implements OnInit {
   }
 
   loadData() {
-    if (this.config.getUseBackend()) {
-      this.getAll();
-    } else {
-      this.contactService.getContacts().subscribe({
-        next: (contacts) => (this.contacts = contacts),
-        error: (error) => console.error('Error al cargar contactos:', error),
-      });
-    }
+    this.contactService.refreshContacts();
+    this.contactService.getContacts().subscribe({
+      next: (contacts) => (this.contacts = contacts),
+      error: (e) => console.error(e),
+    });
   }
 
   getAll() {

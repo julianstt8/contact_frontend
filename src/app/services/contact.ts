@@ -24,16 +24,24 @@ export class ContactService {
   private contactsSubject = new BehaviorSubject<Contact[]>([]);
   public contacts$ = this.contactsSubject.asObservable();
 
-  // Estado de carga
   private loadingSubject = new BehaviorSubject<boolean>(false);
   public loading$ = this.loadingSubject.asObservable();
 
   constructor(private http: HttpClient, private config: AppConfig) {
-    if (!this.config.getUseBackend()) {
-      this.loadContactsFromJSON(); // Cargar desde JSON / localStorage
-    } else {
-      localStorage.removeItem(this.LS_KEY); // <--- limpiar basura local
+    this.config.useBackend$.subscribe((useBackend) => {
+      if (useBackend) {
+        localStorage.removeItem(this.LS_KEY);
+        this.loadAllContacts();
+      } else {
+        this.loadContactsFromJSON();
+      }
+    });
+
+    // Cargar por primera vez
+    if (this.config.getUseBackend()) {
       this.loadAllContacts();
+    } else {
+      this.loadContactsFromJSON();
     }
   }
 
@@ -147,29 +155,24 @@ export class ContactService {
 
   createContact(contact: Omit<Contact, 'id'>): Observable<Contact> {
     if (!this.config.getUseBackend()) return this.createContactLS(contact);
-    return this.http.post<Contact>(this.API_URL, contact, this.getHttpOptions()).pipe(
-      tap(() => this.loadAllContacts()),
-      catchError(this.handleError)
-    );
+
+    return this.http
+      .post<Contact>(this.API_URL, contact, this.getHttpOptions())
+      .pipe(tap(() => this.loadAllContacts()));
   }
 
   updateContact(id: number, contact: Contact): Observable<Contact> {
     if (!this.config.getUseBackend()) return this.updateContactLS(id, contact);
-    return this.http.put<Contact>(`${this.API_URL}/${id}`, contact, this.getHttpOptions()).pipe(
-      tap((updatedContact) => console.log('Contacto actualizado:', updatedContact)),
-      catchError(this.handleError)
-    );
+
+    return this.http
+      .put<Contact>(`${this.API_URL}/${id}`, contact, this.getHttpOptions())
+      .pipe(tap(() => this.loadAllContacts()));
   }
 
   deleteContact(id: number): Observable<any> {
     if (!this.config.getUseBackend()) return this.deleteContactLS(id);
-    return this.http.delete(`${this.API_URL}/${id}`).pipe(
-      tap(() => {
-        const currentContacts = this.contactsSubject.value;
-        this.contactsSubject.next(currentContacts.filter((c) => c.id !== id));
-      }),
-      catchError(this.handleError)
-    );
+
+    return this.http.delete(`${this.API_URL}/${id}`).pipe(tap(() => this.loadAllContacts()));
   }
 
   /**
