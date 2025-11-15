@@ -148,7 +148,7 @@ export class ContactService {
   createContact(contact: Omit<Contact, 'id'>): Observable<Contact> {
     if (!this.config.getUseBackend()) return this.createContactLS(contact);
     return this.http.post<Contact>(this.API_URL, contact, this.getHttpOptions()).pipe(
-      tap((newContact) => this.contactsSubject.next([...this.contactsSubject.value, newContact])),
+      tap(() => this.loadAllContacts()),
       catchError(this.handleError)
     );
   }

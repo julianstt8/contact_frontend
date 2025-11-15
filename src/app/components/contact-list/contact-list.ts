@@ -50,7 +50,6 @@ export class ContactList implements OnInit {
     if (this.config.getUseBackend()) {
       this.getAll();
     } else {
-      this.contactService.loadContactsFromJSON();
       this.contactService.getContacts().subscribe({
         next: (contacts) => (this.contacts = contacts),
         error: (error) => console.error('Error al cargar contactos:', error),
