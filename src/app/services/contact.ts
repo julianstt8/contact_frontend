@@ -28,21 +28,18 @@ export class ContactService {
   public loading$ = this.loadingSubject.asObservable();
 
   constructor(private http: HttpClient, private config: AppConfig) {
-    this.config.useBackend$.subscribe((useBackend) => {
-      if (useBackend) {
-        localStorage.removeItem(this.LS_KEY);
-        this.loadAllContacts();
-      } else {
-        this.loadContactsFromJSON();
-      }
-    });
-
-    // Cargar por primera vez
     if (this.config.getUseBackend()) {
       this.loadAllContacts();
     } else {
       this.loadContactsFromJSON();
     }
+    this.config.useBackend$.subscribe((useBackend) => {
+      if (useBackend) {
+        this.loadAllContacts();
+        return;
+      }
+      this.refreshContacts();
+    });
   }
 
   refreshContacts(): void {
@@ -69,11 +66,17 @@ export class ContactService {
   }
 
   loadContactsFromJSON(): void {
+    const localData = localStorage.getItem(this.LS_KEY);
+    if (localData) {
+      const parsed = JSON.parse(localData);
+      this.contactsSubject.next(parsed);
+      return;
+    }
     this.http.get<Contact[]>('assets/contacts.json').subscribe({
       next: (contacts) => {
         this.updateLocalStateAndSave(contacts);
       },
-      error: (err) => console.error('Error cargando JSON de contactos:', err),
+      error: (err) => console.error('Error cargando JSON', err),
     });
   }
 
