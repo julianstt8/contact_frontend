@@ -6,7 +6,7 @@
     </p>
   </div>
 
-  <div class="card-phones" *ngIf="(contact.telefonos.length || 0) > 0">
+  <div class="card-phones" *ngIf="(contact.telefonos?.length || 0) > 0">
     <p *ngFor="let telefono of contact.telefonos">
       <mat-icon>phone</mat-icon> {{ telefono }}
     </p>

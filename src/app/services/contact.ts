@@ -32,7 +32,8 @@ export class ContactService {
     if (!this.config.getUseBackend()) {
       this.loadContactsFromJSON(); // Cargar desde JSON / localStorage
     } else {
-      this.loadAllContacts(); // Cargar desde backend
+      localStorage.removeItem(this.LS_KEY); // <--- limpiar basura local
+      this.loadAllContacts();
     }
   }
 
