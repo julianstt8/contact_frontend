@@ -62,7 +62,6 @@ export class ContactService {
   loadContactsFromJSON(): void {
     this.http.get<Contact[]>('assets/contacts.json').subscribe({
       next: (contacts) => {
-        console.log('Contactos cargados desde JSON', contacts);
         this.updateLocalStateAndSave(contacts);
       },
       error: (err) => console.error('Error cargando JSON de contactos:', err),
@@ -99,7 +98,6 @@ export class ContactService {
     const updatedContacts = currentContacts.filter((c) => c.id !== id);
     this.contactsSubject.next(updatedContacts);
     localStorage.setItem(this.LS_KEY, JSON.stringify(updatedContacts));
-    console.log(`Contacto ${id} eliminado de localStorage`);
     return new BehaviorSubject({ success: true }).asObservable();
   }
 
@@ -117,7 +115,7 @@ export class ContactService {
     this.http
       .get<Contact[]>(this.API_URL)
       .pipe(
-        tap((contacts) => console.log('Contactos obtenidos:', contacts)),
+        tap((contacts) => console.log('Contactos:', contacts)),
         catchError(this.handleError)
       )
       .subscribe({
@@ -126,7 +124,6 @@ export class ContactService {
           this.loadingSubject.next(false);
         },
         error: (error) => {
-          console.error('Error al cargar contactos:', error);
           this.contactsSubject.next([]);
           this.loadingSubject.next(false);
         },
@@ -188,14 +185,8 @@ export class ContactService {
     let errorMessage = 'Ocurrió un error desconocido';
 
     if (error.error instanceof ErrorEvent) {
-      // Error del lado del cliente
       errorMessage = `Error del cliente: ${error.error.message}`;
     } else {
-      // Error del lado del servidor
-      console.error(`Código de error del servidor: ${error.status}`);
-      console.error(`Mensaje del backend:`, error.error);
-
-      // Mensajes personalizados según el código de error
       switch (error.status) {
         case 0:
           errorMessage =
@@ -214,8 +205,6 @@ export class ContactService {
           errorMessage = error.error?.error || `Error del servidor: ${error.status}`;
       }
     }
-
-    console.error('Error HTTP:', errorMessage);
     return throwError(() => new Error(errorMessage));
   }
 }

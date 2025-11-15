@@ -20,6 +20,5 @@ export class App {
   toggleBackend(): void {
     this.useBackend = !this.useBackend;
     this.config.setUseBackend(this.useBackend);
-    console.log('Modo backend:', this.useBackend);
   }
 }

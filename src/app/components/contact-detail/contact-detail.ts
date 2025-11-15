@@ -83,7 +83,6 @@ export class ContactDetail implements OnInit, OnDestroy {
           },
           error: (error) => {
             this.error = error.message || 'Error al eliminar el contacto';
-            console.error('Error:', error);
             this.loading = false;
           },
         });
